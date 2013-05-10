@@ -1,0 +1,29 @@
+# == Class: <%= module_name %>
+#
+# A class for configuring <%= module_name %>
+#
+# === Parameters:
+#
+# None
+#
+# === Variables:
+#
+# None
+#
+# === Examples:
+#
+# None
+#
+# === Authors:
+#
+# * <%= author || username %>
+#
+# === Copyright:
+#
+# Copyright <%= Time.now.year %>, <%= author || username %>
+# unless otherwise noted.
+#
+class <%= module_name %>::configure {
+  Class['<%= module_name %>::install'] -> Class['<%= module_name %>::configure']
+}
+

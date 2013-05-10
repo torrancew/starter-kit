@@ -1,0 +1,29 @@
+# == Class: <%= module_name %>
+#
+# A class to manage the <%= module_name %> service
+#
+# === Parameters:
+#
+# None
+#
+# === Variables:
+#
+# None
+#
+# === Examples:
+#
+# None
+#
+# === Authors:
+#
+# * <%= author || username %>
+#
+# === Copyright:
+#
+# Copyright <%= Time.now.year %>, <%= author || username %>
+# unless otherwise noted.
+#
+class <%= module_name %> {
+  Class['<%= module_name %>::configure'] -> Class['<%= module_name %>::service']
+}
+
