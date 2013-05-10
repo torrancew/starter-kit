@@ -61,8 +61,7 @@ class StarterKit::Command < Clamp::Command
   end
 
   def create_module_dir
-    module_dir = File.expand_path(name, Dir.pwd)
-    FileUtils.mkdir_p(module_dir) unless File.exist?(module_dir)
+    FileUtils.mkdir_p(module_path) unless File.exist?(module_path)
   end
 
   def install_template(t, path)
