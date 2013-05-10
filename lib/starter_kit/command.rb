@@ -20,16 +20,16 @@ class StarterKit::Command < Clamp::Command
     File.basename(name)
   end
 
-  option ['-a', '--author'],      'AUTHOR',  'The author of this module'
-  option ['-S', '--source'],      'URL',     'The URL to the project source code'
-  option ['-H', '--homepage'],    'URL',     'The URL to the project homepage'
+  option ['-a', '--author'],   'AUTHOR', 'The author of this module'
+  option ['-S', '--source'],   'URL',    'The URL to the project source code'
+  option ['-H', '--homepage'], 'URL',    'The URL to the project homepage'
 
-  option ['-s', '--summary'],     'SUMMARY', 'The module summary'
+  option ['-s', '--summary'], 'SUMMARY', 'The module summary'
   def default_summary
     return "The #{module_name} module"
   end
 
-  option ['-D', '--description'], 'DESC',    'The module description'
+  option ['-D', '--description'], 'DESC', 'The module description'
   def default_description
     summary
   end
