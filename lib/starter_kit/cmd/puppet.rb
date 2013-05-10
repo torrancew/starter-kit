@@ -9,6 +9,10 @@ class StarterKit::Cmd::Puppet < StarterKit::Command
     return (simple? ? "#{super}/simple" : "#{super}/standard")
   end
 
+  def default_prefix
+    return class_name
+  end
+
   option ['-u', '--username'], 'USER', 'The puppet forge user name to associate this module with',
     :default => %x{whoami}.chomp
 

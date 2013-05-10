@@ -44,8 +44,10 @@ class StarterKit::Command < Clamp::Command
     File.dirname(File.expand_path(File.join(Dir.pwd, name)))
   end
 
+  option ['-p', '--prefix'], 'PREFIX', 'A string to prefix the module directory with'
   def module_path
-    File.expand_path(File.join(chdir, module_name))
+    path = ((prefix.nil? or prefix.empty?) ? module_name : "#{prefix}-#{module_name}")
+    return File.expand_path(File.join(chdir, path))
   end
 
   def templates
