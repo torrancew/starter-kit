@@ -63,7 +63,10 @@ class StarterKit::Command < Clamp::Command
   end
 
   def create_module_dir
-    FileUtils.mkdir_p(module_path) unless File.exist?(module_path)
+    unless File.exist?(module_path)
+      puts "Creating #{module_path}"
+      FileUtils.mkdir_p(module_path)
+    end
   end
 
   def install_template(t, path)
@@ -82,11 +85,11 @@ class StarterKit::Command < Clamp::Command
   end
 
   def execute
-    unless File.exist?(module_path)
-      create_module_dir
-      templates.each { |t| install_template(t, module_path) }
-    else
+    if File.exist?(module_path)
       puts "Error: Module already exists at #{module_path}"
+    else
+      create_module_dir
+      templates.sort.each { |t| install_template(t, module_path) }
     end
   end
 end
