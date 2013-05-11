@@ -16,8 +16,16 @@ class StarterKit::Command < Clamp::Command
     binding
   end
 
-  def module_name
-    File.basename(name)
+  def module_name(opts={})
+    opts     = { :camel_case => false, :first => :lower }.merge(opts)
+    mod_name = File.basename(name)
+
+    if opts[:camel_case]
+      mod_name = mod_name.gsub(/[-\s_]/, ' ').strip.split.map { |w| w[0].upcase + w[1..-1] }.join()
+    end
+
+    mod_name[0].downcase! unless opts[:first] == :upper
+    return mod_name
   end
 
   option ['-a', '--author'],   'AUTHOR', 'The author of this module'
