@@ -67,7 +67,8 @@ class StarterKit::Command < Clamp::Command
   end
 
   def install_template(t, path)
-    dest_file = File.expand_path(File.join(path, File.dirname(t), File.basename(t, '.erb')))
+    file_name = File.basename(t, '.erb').gsub('module_name', module_name)
+    dest_file = File.expand_path(File.join(path, File.dirname(t), file_name))
     dest_dir  = File.dirname(dest_file)
 
     unless File.exist?(dest_dir) and File.directory?(dest_dir)
