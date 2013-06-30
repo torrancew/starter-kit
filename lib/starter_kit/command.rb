@@ -67,7 +67,7 @@ class StarterKit::Command < Clamp::Command
     src_dir = File.dirname(tmpl)
 
     return nil unless File.exist?(src_dir) and File.directory?(src_dir) and File.exist?(tmpl)
-    return ERB.new(File.read(tmpl)).result(get_binding)
+    return ERB.new(File.read(tmpl), nil, '-').result(get_binding)
   end
 
   def create_module_dir
