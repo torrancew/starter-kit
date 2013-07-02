@@ -4,16 +4,23 @@ version     '0.0.1'
 summary     'The <%= module_name %> module'
 description '<%= description || String.new %>'
 
-<% if license %>license      '<%= license %>'<% end %>
-<% if source %>source       '<%= source %>'<% end %>
-<% if project_page %>project_page '<%= project_page %>'<% end %>
+<% if license -%>
+license      '<%= license %>'
+<% end -%>
+<% if source -%>
+source       '<%= source %>'
+<% end -%>
+<% if project_page -%>
+project_page '<%= project_page %>'
+<% end -%>
 
 <% if dependencies
      dependencies.map do |dep|
        dependency = dep.map do |part|
          part = part.gsub(/^/, %q{'})
          part.gsub(/$/, %q{'})
-       end.join(', ').chomp(', ') %>dependency <%= dependency %>
+       end.join(', ').chomp(', ') -%>
+dependency <%= dependency %>
 <%   end
-   end %>
+   end -%>
 

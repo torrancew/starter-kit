@@ -16,8 +16,16 @@ class StarterKit::Command < Clamp::Command
     binding
   end
 
-  def module_name
-    File.basename(name)
+  def module_name(opts={})
+    opts     = { :camel_case => false, :first => :lower }.merge(opts)
+    mod_name = File.basename(name)
+
+    if opts[:camel_case]
+      mod_name = mod_name.gsub(/[-\s_]/, ' ').strip.split.map { |w| w[0].upcase + w[1..-1] }.join()
+    end
+
+    mod_name[0].downcase! unless opts[:first] == :upper
+    return mod_name
   end
 
   option ['-a', '--author'],   'AUTHOR', 'The author of this module'
@@ -59,15 +67,20 @@ class StarterKit::Command < Clamp::Command
     src_dir = File.dirname(tmpl)
 
     return nil unless File.exist?(src_dir) and File.directory?(src_dir) and File.exist?(tmpl)
-    return ERB.new(File.read(tmpl)).result(get_binding)
+    return ERB.new(File.read(tmpl), nil, '-').result(get_binding)
   end
 
   def create_module_dir
-    FileUtils.mkdir_p(module_path) unless File.exist?(module_path)
+    unless File.exist?(module_path)
+      puts "Creating #{module_path}"
+      FileUtils.mkdir_p(module_path)
+    end
   end
 
   def install_template(t, path)
-    dest_file = File.expand_path(File.join(path, File.dirname(t), File.basename(t, '.erb')))
+    file_loc  = File.dirname(t).gsub('module_name', module_name)
+    file_name = File.basename(t, '.erb').gsub('module_name', module_name)
+    dest_file = File.expand_path(File.join(path, file_loc, file_name))
     dest_dir  = File.dirname(dest_file)
 
     unless File.exist?(dest_dir) and File.directory?(dest_dir)
@@ -80,11 +93,11 @@ class StarterKit::Command < Clamp::Command
   end
 
   def execute
-    unless File.exist?(module_path)
-      create_module_dir
-      templates.each { |t| install_template(t, module_path) }
-    else
+    if File.exist?(module_path)
       puts "Error: Module already exists at #{module_path}"
+    else
+      create_module_dir
+      templates.sort.each { |t| install_template(t, module_path) }
     end
   end
 end

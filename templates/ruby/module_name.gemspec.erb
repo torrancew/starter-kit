@@ -1,0 +1,19 @@
+require File.expand_path( './lib/<%= module_name %>/version' )
+
+Gem::Specification.new do |spec|
+  spec.name    = '<%= module_name %>'
+  spec.version = <%= module_name( :camel_case => true, :first => :upper )%>::VERSION
+  spec.authors = ['<%= author %>']
+
+  spec.summary     = '<%= summary %>'
+  spec.description = '<%= description %>'
+
+  spec.files       = [Dir['lib/**/*.rb'], Dir['bin/*']].flatten
+  spec.bindir      = 'bin'
+  spec.executables = Dir['bin/*'].map{ |f| f.gsub('bin/', '') }
+
+  spec.add_development_dependency('pry')
+  spec.add_development_dependency('bundler')
+  spec.add_development_dependency('minitest')
+end
+
