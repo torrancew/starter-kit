@@ -59,7 +59,9 @@ class StarterKit::Command < Clamp::Command
   end
 
   def templates
-    return Dir["#{template_dir}/**/*.erb"].map{ |f| f.gsub(%r{^#{template_dir}/}, '') }
+    return [Dir["#{template_dir}/**/*.erb"], Dir["#{template_dir}/**/.*.erb"]].flatten.map do |f|
+      f.gsub(%r{^#{template_dir}/}, '')
+    end
   end
 
   def template(t)
