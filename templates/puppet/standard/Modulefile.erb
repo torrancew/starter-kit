@@ -14,6 +14,7 @@ source       '<%= source %>'
 project_page '<%= project_page %>'
 <% end -%>
 
+dependency 'stdlib', '>= 0'
 <% if dependencies
      dependencies.map do |dep|
        dependency = dep.map do |part|
