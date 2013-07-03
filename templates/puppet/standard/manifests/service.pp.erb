@@ -23,7 +23,7 @@
 # Copyright <%= Time.now.year %>, <%= author || username %>
 # unless otherwise noted.
 #
-class <%= module_name %> {
+class <%= module_name %>::service {
   Class['<%= module_name %>::configure'] -> Class['<%= module_name %>::service']
 }
 
