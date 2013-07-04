@@ -1,4 +1,5 @@
 require 'erb'
+require 'find'
 require 'clamp'
 require 'fileutils'
 require 'starter_kit/version'
@@ -59,9 +60,11 @@ class StarterKit::Command < Clamp::Command
   end
 
   def templates
-    return [Dir["#{template_dir}/**/*.erb"], Dir["#{template_dir}/**/.*.erb"]].flatten.map do |f|
-      f.gsub(%r{^#{template_dir}/}, '')
+    templates = Array.new
+    Find.find(template_dir) do |f|
+      templates << f.gsub(%r{^#{template_dir}/}, '') if f.match(/.erb$/)
     end
+    return templates
   end
 
   def template(t)
