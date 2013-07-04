@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe '<%= module_name %>', :type => 'class' do
+  it do
+    should contain_class '<%= module_name %>::install'
+    should contain_class '<%= module_name %>::configure'
+    should contain_class '<%= module_name %>::service'
+  end
 end
 
