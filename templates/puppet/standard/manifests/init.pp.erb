@@ -29,6 +29,6 @@ class <%= module_name %> {
   class { '<%= module_name %>::service': }
 
   anchor { '<%= module_name %>::begin': } -> Class['<%= module_name %>::install']
-  Class['<%= module_name %>::install']    -> anchor { '<%= module_name %>::end': }
+  Class['<%= module_name %>::service']    -> anchor { '<%= module_name %>::end': }
 }
 
