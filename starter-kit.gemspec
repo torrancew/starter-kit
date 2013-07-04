@@ -1,3 +1,4 @@
+require 'find'
 require File.expand_path(File.join('lib', 'starter_kit', 'version.rb'))
 
 Gem::Specification.new do |spec|
@@ -7,7 +8,9 @@ Gem::Specification.new do |spec|
   spec.email   = ['devwork@warrentorrance.com']
   spec.summary = 'A tool for creating software projects from templates'
 
-  spec.files = Dir['{lib,bin,templates}/**/*']
+  spec.files = Find.find('./').collect do |f|
+    f if f.match(/^(lib|bin|templates)/)
+  end
 
   spec.bindir = 'bin'
   Dir['bin/*'].each do |b|
