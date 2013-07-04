@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.email   = ['devwork@warrentorrance.com']
   spec.summary = 'A tool for creating software projects from templates'
 
-  spec.files = Find.find('./').collect do |f|
-    f if f.match(/^(lib|bin|templates)/)
+  spec.files = Find.find('./').select do |f|
+    f.gsub(%{^\./}, '') if f.match(%r{/(lib|bin|templates)/})
   end
 
   spec.bindir = 'bin'
